@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from typing import List
 from sklearn import tree
+from datasets import DATA_MAP
 
 
 @dataclass
@@ -31,5 +32,7 @@ def extract_model_parameters() -> List[ModelParameters]:
     return models
 
 
-for param in extract_model_parameters():
-    print(param.heuristic)
+# TODO: Write a function that iterates over the model parameters and then
+# evaluates the performance on the test data. Once we get this working
+# for the heuristic decision trees, replicate with Naive Bayes and the SMV
+# vectors.
