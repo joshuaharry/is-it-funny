@@ -4,6 +4,8 @@ from heuristic import count_adult_slang, count_antonyms, count_sounds
 
 TRAINING_SIZE = 1000
 
+TESTING_SIZE = 15000
+
 
 @dataclass
 class Sample:
@@ -49,9 +51,8 @@ class Heuristic:
         self.train = create_sample(fns, training_positives, training_negatives)
         max_positives = positives[TRAINING_SIZE:]
         max_negatives = negatives[TRAINING_SIZE:]
-        max_len = min(len(max_positives), len(max_negatives))
-        testing_positives = max_positives[:max_len]
-        testing_negatives = max_negatives[:max_len]
+        testing_positives = max_positives[:TESTING_SIZE]
+        testing_negatives = max_negatives[:TESTING_SIZE]
         self.test = create_sample(fns, testing_positives, testing_negatives)
         self.method = fns
 
