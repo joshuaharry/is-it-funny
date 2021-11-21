@@ -1,4 +1,4 @@
-from heuristic import count_adult_slang, count_antonyms, count_sounds
+from heuristic import count_adult_slang, count_antonyms, count_sounds, count_all
 
 
 def test_slang_ex1():
@@ -31,3 +31,13 @@ def test_alliteration():
 
 def test_rhyme_alliteration():
     assert count_sounds("potato potato") == 2
+
+
+def test_composition():
+    assert count_all("potato potato") == 2
+    assert (
+        count_all("The coitus was so good that even the neighbors had a cigarette.")
+        == 1
+    )
+    assert count_all("good evil happy unhappy") == 3
+    assert count_all("good evil happy unhappy potato potato") == 5

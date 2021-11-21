@@ -1,2 +1,2 @@
 #!/bin/sh
-watchexec -e 'py' -- python ./learn.py
+watchexec -e 'py' -- python learn.py

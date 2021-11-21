@@ -40,7 +40,7 @@ def read_first_col_csv(the_path: str) -> List[str]:
 
 def extract_jokes() -> List[str]:
     """Extract jokes from the short jokes dataset."""
-    return read_csv("raw/short_joeks.csv", 1)
+    return read_csv("raw/shortjokes.csv", 1)
 
 
 def extract_news_headlines() -> List[str]:
