@@ -1,0 +1,6 @@
+- Paper I'm replicating: https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp05b.pdf
+- Short Jokes: https://www.kaggle.com/abhinavmoudgil95/short-jokes
+- Australian News Headlines: https://www.kaggle.com/therohk/million-headlines
+- Jeapordy Quesitons: https://www.kaggle.com/tunguz/200000-jeopardy-questions?select=JEOPARDY_CSV.csv
+- Amazon Reviews: https://www.kaggle.com/snap/amazon-fine-food-reviews
+- Advice on Antonyms: https://pythonprogramming.net/wordnet-nltk-tutorial/
