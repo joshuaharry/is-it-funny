@@ -1,3 +1,6 @@
+from typing import List
+from dataclasses import dataclass
+from heuristic import count_adult_slang, count_antonyms, count_sounds
 from scrape import (
     extract_reviews,
     extract_news_headlines,
@@ -21,20 +24,18 @@ JEOPARDY = extract_jeopardy_questions()
 TRAINING_JEOPARDY = JEOPARDY[:1000]
 TEST_JEOPARDY = JEOPARDY[1000:]
 
-TRAINING_SETS = [
-    ("headlines", TRAINING_HEADLINES),
-    ("reviews", TRAINING_REVIEWS),
-    ("jeopardy", TRAINING_JEOPARDY),
-]
 
-DATA_MAP = {
-    "headlines": {"test": TEST_HEADLINES, "training": TRAINING_HEADLINES},
-    "reviews": {"test": TEST_REVIEWS, "training": TRAINING_REVIEWS},
-    "jeopardy": {"test": TEST_JEOPARDY, "training": TRAINING_JEOPARDY},
-}
-
-CLASSIFICATIONS = []
+TRAINING_CLASSIFICATIONS = []
 for i in TRAINING_JOKES:
-    CLASSIFICATIONS.append(1)
+    TRAINING_CLASSIFICATIONS.append(1)
 for i in TRAINING_HEADLINES:
-    CLASSIFICATIONS.append(-1)
+    TRAINING_CLASSIFICATIONS.append(-1)
+
+
+def create_samples(fns, documents: List[str]) -> List[List[int]]:
+    out = []
+    for document in documents:
+        cur_sample = []
+        for fn in fns:
+            cur_sample.append(fn(document))
+    return out

@@ -1,2 +1,2 @@
 #!/bin/sh
-watchexec -e 'py' -- python learn_heuristics.py
+watchexec -e 'py' -- python ./datasets.py
