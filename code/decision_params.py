@@ -20,12 +20,16 @@ JEOPARDY = extract_jeopardy_questions()
 TRAINING_JEOPARDY = JEOPARDY[:1000]
 
 HEURISTICS = [
-    count_adult_slang,
-    count_antonyms,
-    count_sounds,
-    [count_antonyms, count_adult_slang, count_antonyms],
+    ("slang", count_adult_slang),
+    ("antonyms", count_antonyms),
+    ("sounds", count_sounds),
+    ("all", [count_antonyms, count_adult_slang, count_antonyms]),
 ]
-TRAINING_SETS = [TRAINING_HEADLINES, TRAINING_REVIEWS, TRAINING_JEOPARDY]
+TRAINING_SETS = [
+    ("headlines", TRAINING_HEADLINES),
+    ("reviews", TRAINING_REVIEWS),
+    ("jeopardy", TRAINING_JEOPARDY),
+]
 
 CLASSIFICATIONS = []
 for i in TRAINING_JOKES:
@@ -51,12 +55,13 @@ def create_decision_params(
     return inputs
 
 
-print(CLASSIFICATIONS)
+print("classifications\t", CLASSIFICATIONS)
 for method in HEURISTICS:
     for training in TRAINING_SETS:
+        print(f"{method[0]}\t{training[0]}\t", end="")
         inputs = []
-        if type(method) != list:
-            inputs = create_decision_params([method], JOKES, training)
+        if type(method[1]) != list:
+            inputs = create_decision_params([method[1]], JOKES, training[1])
         else:
-            inputs = create_decision_params(method, JOKES, training)
+            inputs = create_decision_params(method[1], JOKES, training[1])
         print(inputs)
