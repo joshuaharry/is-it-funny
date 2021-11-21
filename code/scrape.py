@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-from typing import List, Set
+from typing import List, Set, Dict
 from nltk.corpus import wordnet as wn
 import csv
+import numpy as np
 from nltk.corpus import stopwords, cmudict
 
 CM = cmudict.dict()

@@ -1,22 +1,8 @@
 #!/usr/bin/env python3
-from scrape import STOPWORDS, CM, ADULT_WORDS
-from nltk import tokenize
+from scrape import CM, ADULT_WORDS
 from nltk.corpus import wordnet as wn
-from typing import Set, List
-
-
-def words(document: str) -> List[str]:
-    """Extract all words in a particular document, preserving order."""
-    return [
-        word.lower()
-        for word in tokenize.word_tokenize(document)
-        if word not in STOPWORDS
-    ]
-
-
-def unique_words(document: str) -> Set[str]:
-    """Extract the unique words in a particular document."""
-    return set(words(document))
+from typing import Set
+from util import words, unique_words
 
 
 def unique_antonyms(word: str) -> Set[str]:
