@@ -38,7 +38,7 @@ def evaluate(name: str, all_positives: List[str], all_negatives: List[str]):
     negatives = all_negatives[0 : TRAINING_SIZE + TEST_SIZE]
 
     print(f"Vectorizing {name} training_data...")
-    vectorizer.fit([*positives, *negatives])
+    vectorizer.fit([*positives[:TRAINING_SIZE], *negatives[:TRAINING_SIZE]])
     training_classes = [
         *[1 for _ in range(TRAINING_SIZE)],
         *[-1 for _ in range(TRAINING_SIZE)],
