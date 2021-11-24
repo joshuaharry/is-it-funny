@@ -43,11 +43,16 @@ def evaluate(name: str, all_positives: List[str], all_negatives: List[str]):
         *[1 for _ in range(TRAINING_SIZE)],
         *[-1 for _ in range(TRAINING_SIZE)],
     ]
-    testing_classes = [*[1 for _ in range(TEST_SIZE)], *[-1 for _ in range(TEST_SIZE)]]
+    testing_classes = [
+        *[1 for _ in range(len(positives[TRAINING_SIZE:TEST_SIZE]))],
+        *[-1 for _ in range(len(negatives[TRAINING_SIZE:TEST_SIZE]))],
+    ]
     training_vec = vectorizer.transform(
         positives[:TRAINING_SIZE] + negatives[:TRAINING_SIZE]
     )
-    testing_vec = vectorizer.transform(positives[:TEST_SIZE] + negatives[:TEST_SIZE])
+    testing_vec = vectorizer.transform(
+        positives[TRAINING_SIZE:TEST_SIZE] + negatives[TRAINING_SIZE:TEST_SIZE]
+    )
 
     print("Fitting naive bayes...")
     bayes.fit(training_vec, training_classes)
