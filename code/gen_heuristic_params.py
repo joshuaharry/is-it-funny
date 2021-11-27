@@ -7,12 +7,19 @@ TRAINING_SIZE = 1000
 TESTING_SIZE = 15000
 
 
+# A sample contains a list of vectors (lists), in which the coordinates
+# of the vector correspond to some embedding based on one of the heuristics.
 @dataclass
 class Sample:
     samples: List[List[int]]
     classifications: List[int]
 
 
+# Create a Sample using a list of methods, a list of positive examples,
+# and a list of negative examples.
+#
+# Every element of the Methods list is a *function* that we run to populate
+# the embedding vector with some heuristic information.
 def create_sample(
     methods: List[Any], positives: List[str], negatives: List[str]
 ) -> Sample:
@@ -35,6 +42,8 @@ def create_sample(
     return Sample(samples, classifications)
 
 
+# A Heuristic includes training vectors with embedding for a heuristic and
+# test vectors with embedding for a heuristic.
 @dataclass
 class Heuristic:
     name: str
@@ -57,6 +66,8 @@ class Heuristic:
         self.method = fns
 
 
+# A dataset contains embeds a Heuristic object for each of the four
+# Heuristics we want to examine.
 @dataclass
 class Dataset:
     name: str

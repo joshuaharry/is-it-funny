@@ -26,6 +26,7 @@ double cosine_similarity(vector<double> v1, vector<double> v2) {
   return dot_product(v1, v2) / (length(v1) * length(v2));
 }
 
+// Parse the GloVe vectors into a hash map of words to vectors.
 unordered_map<string, vector<double>> get_glove_embeddings() {
   unordered_map<string, vector<double>> out{};
   ifstream ifs("raw/glove.840B.300d.txt");
@@ -45,6 +46,8 @@ unordered_map<string, vector<double>> get_glove_embeddings() {
   return out;
 }
 
+// Put a word and its cosine similarity to the word "Sexuality" into a
+// single document.
 struct Pair {
   string word;
   double cosine_similarity;
@@ -54,6 +57,7 @@ struct Pair {
   };
 };
 
+// Order the Pair structures from most to least similar to Sexuality.
 vector<Pair> get_pairs() {
   vector<Pair> out{};
   auto embeddings = get_glove_embeddings();
@@ -68,6 +72,8 @@ vector<Pair> get_pairs() {
   return out;
 }
 
+// Print out all the pairs. We output the result of this script into a
+// file.
 int main() {
   auto pairs = get_pairs();
   for (auto a_pair : pairs) {
