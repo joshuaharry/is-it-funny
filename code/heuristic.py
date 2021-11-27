@@ -4,7 +4,11 @@ from nltk.corpus import wordnet as wn
 from typing import Set
 from util import words, unique_words
 
+# Each of these functions maps a document (e.g., a sentence) into an
+# integer. These integers then become components of a vector we use
+# to train a decision tree classifier.
 
+# See https://pythonprogramming.net/wordnet-nltk-tutorial/
 def unique_antonyms(word: str) -> Set[str]:
     """Find all antonyms associated with a word."""
     out: Set[str] = set()

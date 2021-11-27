@@ -29,7 +29,9 @@ TRAINING_SIZE = 1000
 
 TEST_SIZE = 15000
 
-
+# Ingest a list of positive documents and negative documents and:
+# 1) Transform them into word embedding vectors using a TfidfVectorizer
+# 2) Run Naive Bayes and an SVM classifier on them.
 def evaluate(name: str, all_positives: List[str], all_negatives: List[str]):
     bayes = MultinomialNB()
     vectorizer = TfidfVectorizer()
