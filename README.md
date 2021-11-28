@@ -9,7 +9,9 @@ First, install [Python 3.9.7](https://www.python.org/downloads/release/python-39
 pip3 install ./requirements.txt
 ```
 
-This should make sure you have all the requisite dependencies to run the code here. Setting up a virtual environment by hand should work, too.
+This should make sure you have all the requisite dependencies to run the code here.
+
+Optionally, if you use `conda` to manage your packages, try running `./conda` from the root of the repository.
 
 Optionally, if you want to generate the list of words related to sexuality, you'll need a C++ compiler. If you're on Mac OS, running:
 
