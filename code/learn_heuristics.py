@@ -21,11 +21,16 @@ NEWS = extract_news_headlines()
 print("Extracting reviews from CSV...")
 REVIEWS = extract_reviews()
 
-
+# Create a tree with the different vector embeddings that we would
+# like to use. See ./gen_heuristic_params.py to learn how the tree
+# gets constructed.
 def create_dataset(name: str, negatives: List[str]) -> Dataset:
     return Dataset(name, JOKES, negatives)
 
 
+# Run a decision tree classifier using different vector embeddings based
+# on the heuristics we're looking for. See the file ./heuristic.py for
+# more information about how we compute each of the embeddings.
 def evaluate(name: str, negatives: List[str]):
     print(f"Creating dataset for {name}...")
     dataset = create_dataset(name, negatives)

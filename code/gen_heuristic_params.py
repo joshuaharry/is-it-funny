@@ -19,7 +19,9 @@ class Sample:
 # and a list of negative examples.
 #
 # Every element of the Methods list is a *function* that we run to populate
-# the embedding vector with some heuristic information.
+# the embedding vector with some heuristic information. We iterate through
+# the functions in `methods` in order and place the results into a separate
+# list which becomes the embedding vector for the decision tree classifier.
 def create_sample(
     methods: List[Any], positives: List[str], negatives: List[str]
 ) -> Sample:
