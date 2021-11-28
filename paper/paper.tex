@@ -34,14 +34,14 @@ Few other tasks illustrate the astonishing effectiveness of machine learning as 
 
 In this article, we describe an attempt to replicate the results of "Making Computers Laugh" over 15 years after its original publication. We describe the steps involved with mimicking their processes and the challenges we faced while trying to do so, taking special note of the places where directly using the methods described in the original work proved infeasible. We then evaluate our new results in comparison with the original ones and conclude with a discussion of relevant related works.
 
-\section{Creating Comparable Data Sets}
+\section{Data: Creating Comparable Sets}
 Replicating the humor detection systems described in the paper first required finding appropriate data to use on the models described in the article. Unfortunately, as of 2021, the exact data sets used in "Making Computers Laugh" are unavailable. The paper describes an elaborate web scraping process used to collect 16000 one-liners, but the links it uses to describe that method no longer point to live websites. The paper also does not link to the "online proverb collection" it uses for examples of non-humorous input data; it does not describe precisely which Reuters headlines or British National Corpus sentences it uses.
 
 Accordingly, our first task involved finding data different but comparable to that used in the article. For positive examples of humor, we used a collection of over 200,000 short jokes; for negative examples, we used a list of 200,000 Jeopardy questions, a list of 1,000,000 news headlines from the Australian Broadcasting Corporation (ABC), and 500,000 reviews taken from Amazon.com about fine foods. \cite{short-jokes} \cite{news-headlines} \cite{jeopardy-questions} \cite{amazon-reviews} All of these datasets came from kaggle, a website with numerous other extensive datasets and machine learning models.
 
 Using short jokes instead of the one liners in the original paper is appropriate because both forms of data work well with classifiers for the same reason. The original authors note: "While longer jokes can have a relatively complex narrative structure, a one-liner must produce the humorous effect `in one shot', with very few words. These characteristics make this type of humor particularly suitable for use in an automatic learning setting" (2005). The short jokes selected for this replication are not necessarily guaranteed to be exactly one sentence long, but their similar length means that our system will likely perform well or badly on them for reasons analagous to those explored in the original paper.
 
-\section{Replicating Humor Recognition}
+\section{Methods: Replicating Humor Recognition}
 With several datasets at hand, the next step of replicating the paper required creating and training several different machine learning models. We started by creating a decision tree classifier that relied on embedding documents into vectors with numeric components derived from up to three heuristics: the count of antonyms, the count of words related to sexuality, and the count of alliterations and rhymes found in a given document. No off-the-shelf mapping between those heuristics and vectors existed, so we needed to implement our own based on the content of the paper.
 
 Finding antonyms involved using the semantic information stored in Princeton's WordNet lexical database. The paper used this dataset as well, though they may have relied on an older version; we used the one directly available through version 3.6.5 of the Natural Language Toolkit (NLTK) Python library. \cite{10.5555/1717171} We also used the version of Carnegie Mellon's pronunciation dictionary bundled with NLTK to count the number of rhymes and alliterations within a sentence. Implementing these counts required writing a few functions that tokenized the sentences, stripped out their stopwords, and tracked the relevant features of each heuristic using the APIs that NLTK exposes directly.
@@ -50,7 +50,7 @@ Tracking the words related to sexuality proved more challenging. "Making Compute
 
 After implementing these heuristics, we had the information we needed to begin running the three machine learning models. The scikit-learn library provided both high-quality off-the-shelf tools for transforming raw documents into TFIDF vectors and using those vectors to learn with Naive Bayes and an SVM classifiers. \cite{sklearn_api} Replicating the paper in those circumstances simply involved running those tools.
 
-\section{Experimental Results}
+\section{Results}
 
 Our results using the decision tree classifier with vectors extracted from the heuristics are below. We trained the model using 1000 samples and tested it on 15000 taken from each of the three datasets; the mean accuracy on the test sets are reported below.
 
@@ -72,9 +72,9 @@ Our results using the decision tree classifier with vectors extracted from the h
 
 \noindent \textsc{Table 1}: Humor recognition mean accuracies using adult slang words, sounds (such as rhymes and alliteration), antonyms, and all heuristics at once.\\
 
-This range of percentages (70\% to 50\%) match roughly the range found in the original paper. Intriguingly, in our experiment, we found that words related to sexuality served as the most effective indicator of humorous content, whereas in the original paper alliteration and rhymes yielded the most accurate clues. Differences in the jokes dataset may have caused this discrepancy; jokes explicitly labeled as one-liners are probably more likely to rely on sound based humor than those that are specifically short. Furthermore, our decision to use GloVe vectors instead of manually labelled documents may have contributed to the effectiveness of that measure as well.
+This range of percentages (70\% to 50\%) match roughly the range found in the original paper.
 
-We now discuss our results using Naive Bayes and SMV learning. In these examples, we also used 1000 training samples and 15000 test samples. The results were as follows:
+We now describe our results using Naive Bayes and SMV learning. In these examples, we also used 1000 training samples and 15000 test samples. The results were as follows:
 
 \begin{center}
   \begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
@@ -90,7 +90,12 @@ We now discuss our results using Naive Bayes and SMV learning. In these examples
 
 \noindent \textsc{Table 2}: Humor recognition mean accuracies using Naive Bayes and SVM classifiers.\\
 
-These scores are comparable to the ones in the original paper, albeit somewhat higher in the worst-case scenarios. Given the numerous differences in implementation within this project and the original text, that these content-based classifiers achieved equally good or even better results suggests that the techniques and findings used in "Making Computers Laugh" do indeed replicate: classic classification techniques can in some circumstances successfully distinguish between short humorous and non-humorous documents from various corpora.
+These scores are comparable to the ones in the original paper, albeit somewhat higher in the worst-case scenarios.
+
+\section{Discussion}
+Intriguingly, in our experiment, we found that words related to sexuality served as the most effective indicator of humorous content, whereas in the original paper alliteration and rhymes yielded the most accurate clues. Differences in the jokes dataset may have caused this discrepancy; jokes explicitly labeled as one-liners are probably more likely to rely on sound based humor than those that are specifically short. Furthermore, our decision to use GloVe vectors instead of manually labelled documents may have contributed to the effectiveness of that measure as well.
+
+Given the numerous differences in implementation within this project and the original text, that these content-based classifiers achieved equally good or even better results suggests that the techniques and findings used in "Making Computers Laugh" do indeed replicate: classic classification techniques can in some circumstances successfully distinguish between short humorous and non-humorous documents from various corpora.
 
 \section{Related Work}
 
