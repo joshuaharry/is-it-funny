@@ -9,9 +9,14 @@ First, install [Python 3.9.7](https://www.python.org/downloads/release/python-39
 pip3 install ./requirements.txt
 ```
 
-This should make sure you have all the requisite dependencies to run the code here.
+Then open a `python` repl and run:
 
-Optionally, if you use `conda` to manage your packages, try running `./conda` from the root of the repository.
+```python
+import nltk
+nltk.download('popular')
+```
+
+This should make sure you have all the requisite dependencies to run the code here. You should also be able to use `pip` or `conda` to set up a virtual environment manually.
 
 Optionally, if you want to generate the list of words related to sexuality, you'll need a C++ compiler. If you're on Mac OS, running:
 
