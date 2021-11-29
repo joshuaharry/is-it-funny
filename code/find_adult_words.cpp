@@ -3,6 +3,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ double length(vector<double> v) {
   for (auto num : v) {
     sum += num * num;
   }
-  return sqrt(sum);
+  return std::sqrt(sum);
 }
 
 double cosine_similarity(vector<double> v1, vector<double> v2) {
