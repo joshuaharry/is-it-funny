@@ -48,7 +48,7 @@ Finding antonyms involved using the semantic information stored in Princeton's W
 
 Tracking the words related to sexuality proved more challenging. "Making Computers Laugh" relied on traversing a graph constructed with help from the WordNet Domains project, which associated items from WordNet with relevant domain labels. More specifically, the authors performed a graph search by finding words related to one another through the \textsc{sexuality} label in that project. Unfortunately, the link to download WordNet Domains no longer appears to work, and while an unofficial copy of the project exists on GitHub, the data within it appears out of date with the most modern WordNet corpus. \footnote{See \href{https://wndomains.fbk.eu}{WordNet Domain's website} and \href{https://github.com/larsmans/wordnet-domains-sentiwords}{this repository.}} Because of these challenges, we opted to find words related to sexuality differently: We relied on pre-computed GloVe vectors for word representation. \cite{pennington-etal-2014-glove} We wrote a script to find the top 5,000 words with the closest cosine similarity to the word \textsc{sexuality} and counted the number of times they appeared within a document. As we shall see in the results section, this strategy appears to have yielded analogous results to those in the original paper.
 
-After implementing these heuristics, we had the information we needed to begin running the three machine learning models. The scikit-learn library provided both high-quality off-the-shelf tools for transforming raw documents into TFIDF vectors and using those vectors to learn with Naive Bayes and an SVM classifiers. \cite{sklearn_api} Replicating the paper in those circumstances simply involved running those tools.
+After implementing these heuristics, we had the information we needed to begin running the three machine learning models. The scikit-learn library provided both high-quality off-the-shelf tools for transforming raw documents into TFIDF vectors and using those vectors to learn with Naive Bayes and an SVM classifiers. \cite{sklearn_api} Replicating the paper in those circumstances required running those tools.
 
 \section{Results}
 
@@ -70,11 +70,9 @@ We now present our results using the decision tree classifier with vectors extra
 \end{tabular}
 \end{center}
 
-\noindent \textsc{Table 1}: Humor recognition mean accuracies using adult slang words, sounds (such as rhymes and alliteration), antonyms, and all heuristics at once.\\
+\noindent \textsc{Table 1}: Humor recognition mean accuracies using adult slang words, sounds (such as rhymes and alliteration), antonyms, and all heuristics.\\
 
-This range of percentages (70\% to 50\%) roughly matches the data in the original paper.
-
-We now describe our results using Naive Bayes and SVM classifiers. In these examples, we also used 1000 training samples and 15000 test samples. The results were as follows:
+This range of percentages (70\% to 50\%) roughly matches the data in the original paper. We now describe our results using Naive Bayes and SVM classifiers. These also used 1000 training samples and 15000 test samples:
 
 \begin{center}
   \begin{tabular}{|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|}
